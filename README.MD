@@ -44,7 +44,7 @@ be.
 
 
 
-                bigpay-demo-project/
+                terraform-k8s-demo-project/
                 ├── 3-tier-app/
                 │   ├── backend/
                 │   ├── db/
