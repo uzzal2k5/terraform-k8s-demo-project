@@ -40,56 +40,58 @@ maintain.
     ● An idea of how to achieve a production-quality solution based on what you’ve done,
 what trade-offs you elected to make, and where the weak points in that solution might
 be.
+## Directory Structure
 
 
-bigpay-demo-project/
-├── 3-tier-app/
-│   ├── backend/
-│   ├── db/
-│   ├── frontend/
-│   ├── docker-compose.yaml
-│   └── README.MD
-├── terraform/aws/
-│   ├── modules/
-│   │   ├── vpc/
-│   │   ├── eks/
-│   │   ├── rds/
-│   │   ├── igw/
-│   │   └── alb/
-│   ├── eip.tf
-│   ├── igw_route_table.tf
-│   ├── main.tf
-│   ├── nat_gateway.tf
-│   ├── nat_gateway_route_table.tf
-│   ├── outputs.tf
-│   ├── private_subnet_association.tf
-│   ├── public_subnet_association.tf
-│   ├── provider.tf
-│   ├── variables.tf
-│   └── README.MD
-├── k8s-manifests/eks/
-│   ├── configmap.yaml
-│   ├── frontend-deployment.yaml
-│   ├── backend-deployment.yaml
-│   ├── backend-service.yaml
-│   ├── frontend-service.yaml
-│   ├── ingress.yaml
-│   ├── namespace.yaml
-│   ├── network-policies.yaml
-│   └── README.MD
-├── ansible/
-│   ├── playbook.yaml
-│   └── README.MD
-└── README.md
+
+                bigpay-demo-project/
+                ├── 3-tier-app/
+                │   ├── backend/
+                │   ├── db/
+                │   ├── frontend/
+                │   ├── docker-compose.yaml
+                │   └── README.MD
+                ├── terraform/aws/
+                │   ├── modules/
+                │   │   ├── vpc/
+                │   │   ├── eks/
+                │   │   ├── rds/
+                │   │   ├── igw/
+                │   │   └── alb/
+                │   ├── eip.tf
+                │   ├── igw_route_table.tf
+                │   ├── main.tf
+                │   ├── nat_gateway.tf
+                │   ├── nat_gateway_route_table.tf
+                │   ├── outputs.tf
+                │   ├── private_subnet_association.tf
+                │   ├── public_subnet_association.tf
+                │   ├── provider.tf
+                │   ├── variables.tf
+                │   └── README.MD
+                ├── k8s-manifests/eks/
+                │   ├── configmap.yaml
+                │   ├── frontend-deployment.yaml
+                │   ├── backend-deployment.yaml
+                │   ├── backend-service.yaml
+                │   ├── frontend-service.yaml
+                │   ├── ingress.yaml
+                │   ├── namespace.yaml
+                │   ├── network-policies.yaml
+                │   └── README.MD
+                ├── ansible/
+                │   ├── playbook.yaml
+                │   └── README.MD
+                └── README.md
 
 # Terraform
-terraform init
-terraform plan
-terraform apply
+    terraform init
+    terraform plan
+    terraform apply
 
 # K8s
-kubectl apply -f k8s-manifests/namespace.yaml
-kubectl apply -f k8s-manifests/
+    kubectl apply -f k8s-manifests/namespace.yaml
+    kubectl apply -f k8s-manifests/
 
 
 create  terraform IaC code to build EKS infrstruture along with ELB to deploy  an Nodejs Web application along with postgresql into multiple region. Create the complete project
