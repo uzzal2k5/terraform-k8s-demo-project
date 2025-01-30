@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: 3-tier-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: topology.kubernetes.io/zone  # Ensures pods are spread across different zones
+                    operator: In
+                    values:
+                      - us-east-1a
+                      - us-east-1b
+                      - us-east-1c  # Replace with your actual zones
+
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: frontend
+              topologyKey: "kubernetes.io/hostname"  # Ensures no two backend pods run on the same node
+
+      containers:
+        - name: frontend
+          image: <frontend-image>
+          ports:
+            - containerPort: 80

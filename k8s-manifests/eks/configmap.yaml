@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: 3-tier-app
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  DB_HOST: "<your-rds-endpoint>"
+  DB_PORT: "5432"
+  DB_NAME: "counterdb"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+type: Opaque
+data:
+  DB_USER: "YWRtaW4=" #base64-encoded-value
+  DB_PASSWORD: "c2VjdXJlcGFzc3dvcmQ=" #base64-encoded-value
+  JWT_SECRET: "<your-base64-encoded-jwt-secret>"
+  SESSION_SECRET: "<your-base64-encoded-session-secret>"

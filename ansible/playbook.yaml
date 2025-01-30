@@ -1,0 +1,22 @@
+# playbook.yaml
+- name: Configure Kubernetes cluster and deploy the application
+  hosts: localhost
+  tasks:
+    - name: Install Kubernetes CLI tools
+      apt:
+        name: ["kubectl", "helm"]
+        state: present
+
+    - name: Deploy backend services to GKE
+      shell: |
+        kubectl apply -f k8s/
+      args:
+        chdir: /path/to/your/application
+
+    - name: Ensure network policies
+      shell: |
+        kubectl apply -f k8s/network-policies.yaml
+
+    - name: Ensure secrets management
+      shell: |
+        kubectl apply -f k8s/secrets.yaml

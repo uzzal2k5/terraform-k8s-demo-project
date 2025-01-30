@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Counter App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="counter-container">
+    <h1>Counter App</h1>
+    <p id="counter">Loading...</p>
+    <button id="increment-btn">Increment</button>
+</div>
+<script>
+    async function updateCounter() {
+      const res = await fetch('/counter');
+      const data = await res.json();
+      document.getElementById('counter').innerText = `Counter: ${data.counter}`;
+    }
+
+    async function incrementCounter() {
+      const res = await fetch('/increment');
+      const data = await res.json();
+      document.getElementById('counter').innerText = `Counter: ${data.counter}`;
+    }
+
+    document.getElementById('increment-btn').addEventListener('click', incrementCounter);
+
+    updateCounter(); // Load the current counter value
+</script>
+</body>
+</html>
