@@ -1,6 +1,8 @@
 - name: Run All Playbooks Sequentially
   hosts: localhost
-  gather_facts: false
+  gather_facts: no
+  become: true
+  strategy: free
   tasks:
     - name: Run the first playbook (terraform.yml)
       import_playbook: playbooks/terraform.yml

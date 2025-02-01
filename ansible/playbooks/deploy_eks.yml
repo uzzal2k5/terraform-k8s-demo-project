@@ -2,5 +2,6 @@
   hosts: eks_nodes
   gather_facts: no
   become: true
+  strategy: free
   roles:
     - ../roles/eks_deploy

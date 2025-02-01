@@ -1,5 +1,10 @@
 - name: Authenticate Docker with AWS ECR
   hosts: localhost
   gather_facts: no
+  become: true
+  strategy: free
+  vars_files:
+    - ../roles/ecr_login/vars/main.yml
+    - ../sudo_file
   roles:
     - ../roles/ecr_login

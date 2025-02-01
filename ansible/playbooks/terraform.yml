@@ -1,6 +1,8 @@
 - name: Deploy Infrastructure using Terraform
   hosts: localhost
   gather_facts: no
+  become: true
+  strategy: free
   roles:
     - ../roles/terraform
 

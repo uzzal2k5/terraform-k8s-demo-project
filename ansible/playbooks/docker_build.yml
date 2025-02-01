@@ -1,6 +1,8 @@
 - name: Authenticate and Build Docker Images for  Backend and Frontend to ECR
   hosts: localhost
   gather_facts: no
+  become: true
+  strategy: free
   roles:
     - ../roles/ecr_login
     - ../roles/3-tier-app/backend
