@@ -1,0 +1,8 @@
+- name: Build backend Docker image
+  command: "docker build -t {{ backend_image }} {{ backend_source_dir }}"
+
+- name: Tag backend Docker image for ECR
+  command: "docker tag {{ backend_image }} {{ backend_image }}"
+
+- name: Push backend Docker image to ECR
+  command: "docker push {{ backend_image }}"

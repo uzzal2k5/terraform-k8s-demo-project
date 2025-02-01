@@ -1,0 +1,19 @@
+#aws_region: "us-east-1"
+#ecr_repository_url: "<ECR_REPOSITORY_URL>"  # Replace with actual ECR URL or fetch dynamically
+#
+aws_region: "us-east-1"
+aws_account_id: "123456789012"  # Replace with your AWS Account ID
+
+# Paths to existing source code directories
+backend_source_dir: " ../../3-tier-app/backend"
+frontend_source_dir: " ../../3-tier-app/frontend"
+
+# AWS ECR repositories
+ecr_repository_backend: "backend-repo"
+ecr_repository_frontend: "frontend-repo"
+
+backend_image: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/{{ ecr_repository_backend }}:latest"
+frontend_image: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/{{ ecr_repository_frontend }}:latest"
+
+terraform_dir: "../../terraform/aws""  # Change this to your Terraform script directory
+parallelism: 1  # Set to 1 to ensure serial execution (one resource at a time)

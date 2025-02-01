@@ -1,0 +1,9 @@
+- name: Get AWS ECR login password
+  command: "aws ecr get-login-password --region {{ aws_region }}"
+  register: ecr_password
+  no_log: true  # Hide sensitive credentials from logs
+
+- name: Log in to AWS ECR with Docker
+  command: "docker login --username AWS --password-stdin {{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com"
+  args:
+    stdin: "{{ ecr_password.stdout }}"

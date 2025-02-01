@@ -1,0 +1,16 @@
+# Misc
+CODEOWNERS
+Makefile
+README.*
+LICENSE
+
+# Go vendors
+vendor
+node_modules
+
+# Git
+#.git required for pre-commit
+.gitignore
+
+# Docker
+Dockerfile

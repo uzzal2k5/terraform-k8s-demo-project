@@ -18,34 +18,4 @@ resource "aws_db_instance" "postgres" {
 
 }
 
-resource "aws_db_subnet_group" "rds_subnet_group" {
-  name       = "rds-subnet-group"
-  subnet_ids = module.vpc.private_subnet
-
-  tags = {
-    Name = "rds-subnet-group"
-  }
-}
-
-resource "aws_security_group" "rds_sg" {
-  depends_on = [module.vpc.aws_vpc,module.vpc.private_subnet]
-  name        = "rds-security-group"
-  vpc_id      = module.vpc.vpc_id
-
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    #cidr_blocks = ["10.0.0.0/16"]
-    cidr_blocks = [var.vpc_cidr]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 

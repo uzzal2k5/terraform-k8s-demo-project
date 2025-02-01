@@ -16,3 +16,6 @@ output "rds_endpoint" {
 #  value = aws_db_instance.postgres.endpoint
 }
 
+output "rds_instance_id" {
+  value = module.rds.rds_instance_id
+}

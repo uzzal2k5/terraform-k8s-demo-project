@@ -2,4 +2,4 @@
   hosts: localhost
   gather_facts: no
   roles:
-    - ecr_login
+    - ../roles/ecr_login

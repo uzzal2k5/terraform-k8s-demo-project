@@ -53,20 +53,22 @@ be.
                 │   └── README.MD
                 ├── terraform/aws/
                 │   ├── modules/
-                │   │   ├── vpc/
+                │   │   ├── alb/
+                │   │   ├── ecr/
+                │   │   ├── eip/
                 │   │   ├── eks/
-                │   │   ├── rds/
+                │   │   ├── global_settings/
                 │   │   ├── igw/
-                │   │   └── alb/
-                │   ├── eip.tf
-                │   ├── igw_route_table.tf
+                │   │   ├── nat/
+                │   │   ├── rds/
+                │   │   ├── s3/
+                │   │   └── vpc/
+                │   ├── config.tf
+                │   ├── datasource.tf
                 │   ├── main.tf
-                │   ├── nat_gateway.tf
-                │   ├── nat_gateway_route_table.tf
                 │   ├── outputs.tf
-                │   ├── private_subnet_association.tf
-                │   ├── public_subnet_association.tf
                 │   ├── provider.tf
+                │   ├── terraform.tfvars
                 │   ├── variables.tf
                 │   └── README.MD
                 ├── k8s-manifests/eks/
@@ -95,3 +97,67 @@ be.
 
 
 create  terraform IaC code to build EKS infrstruture along with ELB to deploy  an Nodejs Web application along with postgresql into multiple region. Create the complete project
+
+Ansible Playbook
+ansible-playbook-project/
+├── inventories/
+│   ├── production/
+│   │   ├── hosts.ini
+│   │   ├── group_vars/
+│   │   │   ├── all.yml
+│   │   │   ├── webservers.yml
+│   │   │   └── dbservers.yml
+│   │   └── host_vars/
+│   │       ├── web01.yml
+│   │       ├── web02.yml
+│   │       ├── db01.yml
+│   │       └── db02.yml
+│   ├── staging/
+│   │   ├── hosts.ini
+│   │   ├── group_vars/
+│   │   ├── host_vars/
+│   └── development/
+├── roles/
+│   ├── common/
+│   │   ├── tasks/
+│   │   │   ├── main.yml
+│   │   │   ├── install.yml
+│   │   │   └── configure.yml
+│   │   ├── handlers/
+│   │   │   ├── main.yml
+│   │   ├── templates/
+│   │   │   ├── nginx.conf.j2
+│   │   ├── files/
+│   │   │   ├── some_file.txt
+│   │   ├── vars/
+│   │   │   ├── main.yml
+│   │   ├── defaults/
+│   │   │   ├── main.yml
+│   │   ├── meta/
+│   │   │   ├── main.yml
+│   │   ├── tests/
+│   │   │   ├── test.yml
+│   │   ├── README.md
+│   ├── webserver/
+│   ├── database/
+├── playbooks/
+│   ├── site.yml
+│   ├── webservers.yml
+│   ├── dbservers.yml
+│   ├── deploy.yml
+├── group_vars/
+│   ├── all.yml
+│   ├── webservers.yml
+│   ├── dbservers.yml
+├── host_vars/
+│   ├── web01.yml
+│   ├── web02.yml
+│   ├── db01.yml
+│   ├── db02.yml
+├── files/
+│   ├── myconfig.conf
+├── templates/
+│   ├── mytemplate.j2
+├── ansible.cfg
+├── requirements.yml
+├── README.md

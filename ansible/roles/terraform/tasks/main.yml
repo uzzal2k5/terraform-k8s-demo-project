@@ -1,0 +1,28 @@
+- name: Install Terraform
+  apt:
+    name: terraform
+    state: present
+  become: yes
+
+- name: Ensure AWS CLI is installed
+  command: "aws --version"
+  register: aws_cli_check
+  ignore_errors: yes
+
+- name: Install AWS CLI if not present
+  apt:
+    name: awscli
+    state: present
+  when: aws_cli_check.rc != 0
+  become: yes
+
+- name: Initialize Terraform
+  command: "terraform init"
+  args:
+    chdir: "{{ terraform_dir }}"
+
+- name: Apply Terraform configuration with serial execution
+  command: "terraform apply -auto-approve -parallelism={{ parallelism }}"
+  args:
+    chdir: "{{ terraform_dir }}"
+
