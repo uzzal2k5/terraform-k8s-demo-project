@@ -1,22 +1,15 @@
-# playbook.yaml
-- name: Configure Kubernetes cluster and deploy the application
+- name: Run All Playbooks Sequentially
   hosts: localhost
+  gather_facts: false
   tasks:
-    - name: Install Kubernetes CLI tools
-      apt:
-        name: ["kubectl", "helm"]
-        state: present
+    - name: Run the first playbook (terraform.yml)
+      import_playbook: playbooks/terraform.yml
 
-    - name: Deploy backend services to GKE
-      shell: |
-        kubectl apply -f k8s/
-      args:
-        chdir: /path/to/your/application
+    - name: Run the second playbook (ecr_login.yml)
+      import_playbook: playbooks/ecr_login.yml
 
-    - name: Ensure network policies
-      shell: |
-        kubectl apply -f k8s/network-policies.yaml
+    - name: Run the third playbook (docker_build.yml)
+      import_playbook: playbooks/docker_build.yml
 
-    - name: Ensure secrets management
-      shell: |
-        kubectl apply -f k8s/secrets.yaml
+    - name: Run the third playbook (deploy_eks.yml)
+      import_playbook: playbooks/deploy_eks.yml

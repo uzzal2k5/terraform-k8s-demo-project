@@ -15,5 +15,10 @@ ecr_repository_frontend: "frontend-repo"
 backend_image: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/{{ ecr_repository_backend }}:latest"
 frontend_image: "{{ aws_account_id }}.dkr.ecr.{{ aws_region }}.amazonaws.com/{{ ecr_repository_frontend }}:latest"
 
-terraform_dir: "../../terraform/aws""  # Change this to your Terraform script directory
+terraform_dir: "../../terraform/aws""  # Change this to your Terraform script directory"
 parallelism: 1  # Set to 1 to ensure serial execution (one resource at a time)
+
+eks_cluster_name: "eks-cluster"
+kubeconfig_path: "/home/ec2-user/.kube/config"
+namespace: "3-tier-app"
+manifests_path: "../../k8s-manifests/eks"

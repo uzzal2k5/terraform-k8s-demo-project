@@ -1,0 +1,68 @@
+- name: Ensure AWS CLI is Installed
+  ansible.builtin.command: "aws --version"
+  register: aws_version
+  ignore_errors: true
+
+- name: Configure kubectl for EKS Cluster
+  ansible.builtin.command: >
+    aws eks --region {{ aws_region }} update-kubeconfig --name {{ eks_cluster_name }}
+  register: kubeconfig_output
+  changed_when: false
+
+- name: Apply Kubernetes Manifest - Namespace
+  kubernetes.core.k8s:
+    state: present
+    src: "{{manifests_path}}/namespace.yaml"
+    kubeconfig: "{{ kubeconfig_path }}"
+
+- name: Apply Kubernetes Manifest - ConfigMap
+  kubernetes.core.k8s:
+    state: present
+    src: "{{manifests_path}}/configmap.yaml"
+    kubeconfig: "{{ kubeconfig_path }}"
+
+- name: Apply Kubernetes Manifest - backend
+  kubernetes.core.k8s:
+    state: present
+    src: "{{manifests_path}}/backend-deployment.yaml"
+    kubeconfig: "{{ kubeconfig_path }}"
+
+
+- name: Apply Kubernetes Manifest - backend service
+  kubernetes.core.k8s:
+    state: present
+    src: "{{manifests_path}}/backend-service.yaml"
+    kubeconfig: "{{ kubeconfig_path }}"
+
+- name: Apply Kubernetes Manifest - frontend
+  kubernetes.core.k8s:
+    state: present
+    src: "{{manifests_path}}/frontend-deployment.yaml"
+    kubeconfig: "{{ kubeconfig_path }}"
+
+- name: Apply Kubernetes Manifest - frontend service
+  kubernetes.core.k8s:
+    state: present
+    src: "{{manifests_path}}/frontend-service.yaml"
+    kubeconfig: "{{ kubeconfig_path }}"
+
+
+- name: Apply Kubernetes Manifest - ingress
+  kubernetes.core.k8s:
+    state: present
+    src: "{{manifests_path}}/ingress.yaml"
+    kubeconfig: "{{ kubeconfig_path }}"
+
+- name: Apply Kubernetes Manifest - network-policies
+  kubernetes.core.k8s:
+    state: present
+    src: "{{manifests_path}}/network-policies.yaml"
+    kubeconfig: "{{ kubeconfig_path }}"
+
+#- name: Apply Kubernetes Deployments
+#  kubernetes.core.k8s:
+#    state: present
+#    src: "{{ item }}"
+#    kubeconfig: "{{ kubeconfig_path }}"
+#  loop: "{{ query('fileglob', '{{manifests_path}}/*.yaml') }}"
+
