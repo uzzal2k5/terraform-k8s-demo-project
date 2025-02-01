@@ -1,48 +1,58 @@
-Exercise EX007: Cloud Engineer
+##Exercise EX007: Cloud Engineer
 A simple k8s app
 Version 2.0
 ---
 
 
-People often host applications on Kubernetes for scalability and fault-tolerance. Write some
-code to provision a simple 3-tier application on a variant of k8s (GKE, EKS, microk8s, .. ).
-
-Your application should contain:
-1. A web server of your choice
-2. Some business logic
-3. A Postgres database
+##Objective:
+---
+Your task is to provide a simple 3-tier application on a Kubernetes variant (such as GKE, EKS, microk8s, etc.) to demonstrate scalability and fault tolerance.
 
 
-The web interface should provide the user with a button, a text string, and a count. Pressing
-the button should increment the counter. The counter value should be stored in the
-database, but there is no need to update it automatically as the database changes. The text
-string should be configurable by administrators without modifying the application.
+Application Components:
+- A web server of your choice
+- Business logic to handle functionality
+- A PostgreSQL database
 
 
-Your solution should use Terraform (or equivalent) to create the necessary infrastructure in
-your chosen provider and Ansible (or equivalent) to provision the infrastructure.
-
-Additional requirements:
-
-● When deployed on a zonally redundant k8s cluster such as GKE’s regional k8s
-clusters, the application should tolerate the failure of any one zone in a region.
-● You should ensure that the application is secure against external attackers and
-provide some protection against horizontal traversal by threat actors.
-● Avoid using hardwired credentials.
+Web Interface Requirements:
+- The interface should include:
+    - A button
+    - A text string
+    - A counter
+- When the button is pressed, the counter should increment.
+- The counter value should be stored in the PostgreSQL database. There is no need for real-time automatic updates when the database changes.
+- The text string displayed should be configurable by administrators without modifying the application code.
 
 
-We’re not expecting you to provide a perfect solution, but we would like you to have come up
-with:
+Infrastructure Provisioning:
+- Use Terraform (or an equivalent tool) to create the infrastructure in your chosen provider.
+- Use Ansible (or an equivalent tool) to provision the application and related infrastructure.
 
-    ● A workable approach that could be extended to give a production-quality solution
-    ● A reasonable amount (100-200 lines or so) of readable code that we could plausibly
-maintain.
-    ● An idea of how to achieve a production-quality solution based on what you’ve done,
-what trade-offs you elected to make, and where the weak points in that solution might
-be.
+
+Additional Requirements:
+- The application should be deployed on a zonally redundant Kubernetes cluster (e.g., GKE’s regional clusters) to ensure that it can tolerate the failure of any single zone in the region.
+- Ensure the application is secure from external attackers and protects against lateral movement by malicious actors.
+- Avoid using hardcoded credentials within the application.
+
+
+What We're Looking For:
+- A practical approach that can be extended for production use.
+- A reasonable amount of readable code (around 100-200 lines) that can be maintained easily.
+- A clear understanding of how to scale the solution to production quality, including trade-offs you’ve made and potential weaknesses in your approach.
+
+##Disclaimer
+---
+In this project, I have developed the code base, which may not be fully tested. The primary aim is to showcase my approach to the solution, starting from the development of the web application to its deployment for end users.
+The following tools and technologies have been used throughout the project. Please note that the code base may require debugging, adjustments to variable values, and the installation of necessary packages. Authentication may also be necessary for successful execution.
+    - Node.js, Nginx, PostgreSQL
+    - Ansible, Terraform
+    - Docker, Kubernetes
+    - AWS
+
+
 ## Directory Structure
-
-
+---
 
                 terraform-k8s-demo-project/
                 ├── 3-tier-app/
@@ -96,4 +106,5 @@ be.
     kubectl apply -f k8s-manifests/
 
 
-create  terraform IaC code to build EKS infrstruture along with ELB to deploy  an Nodejs Web application along with postgresql into multiple region. Create the complete project
+
+Develop Terraform Infrastructure-as-Code (IaC) to provision an AWS EKS cluster with an ELB for deploying a Node.js web application and a PostgreSQL database across multiple regions. Build the complete project with a well-structured architecture.
