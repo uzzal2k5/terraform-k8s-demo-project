@@ -1,6 +1,6 @@
 ### Exercise EX007: Cloud Engineer
 
-A simple k8s app ( Version 2.0)
+ A simple k8s app ( Version 2.0)
 ---
 
 
