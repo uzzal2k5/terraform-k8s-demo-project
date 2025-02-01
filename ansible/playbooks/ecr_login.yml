@@ -1,0 +1,5 @@
+- name: Authenticate Docker with AWS ECR
+  hosts: localhost
+  gather_facts: no
+  roles:
+    - ecr_login

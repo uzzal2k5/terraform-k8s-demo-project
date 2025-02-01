@@ -1,6 +1,3 @@
-module "vpc" {
-  source = "./modules/vpc"
-}
 
 resource "aws_db_instance" "postgres" {
   allocated_storage      = 20
@@ -17,11 +14,13 @@ resource "aws_db_instance" "postgres" {
   tags = {
     Name = "rds-postgres"
   }
+  depends_on = [aws_security_group.rds_sg]
+
 }
 
 resource "aws_db_subnet_group" "rds_subnet_group" {
   name       = "rds-subnet-group"
-  subnet_ids = module.vpc.private_subnets
+  subnet_ids = module.vpc.private_subnet
 
   tags = {
     Name = "rds-subnet-group"
@@ -29,6 +28,7 @@ resource "aws_db_subnet_group" "rds_subnet_group" {
 }
 
 resource "aws_security_group" "rds_sg" {
+  depends_on = [module.vpc.aws_vpc,module.vpc.private_subnet]
   name        = "rds-security-group"
   vpc_id      = module.vpc.vpc_id
 
@@ -37,7 +37,7 @@ resource "aws_security_group" "rds_sg" {
     to_port     = 5432
     protocol    = "tcp"
     #cidr_blocks = ["10.0.0.0/16"]
-    cidr_blocks = [module.vpc.cidr_block]
+    cidr_blocks = [var.vpc_cidr]
   }
 
   egress {
